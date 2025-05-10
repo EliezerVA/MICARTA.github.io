@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Te Amo en Caída</title>
+  <!-- Tipografías Montserrat y Roboto desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+      overflow-x: hidden;
+      overflow-y: auto; /* <-- scroll vertical habilitado */
+    }
+
+    .counter {
+      position: fixed;
+      top: 10px;
+      right: 15px;
+      font-size: 1.4rem;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 14px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px #888;
+      z-index: 1000;
+      color: #e91e63;
+    }
+
+    .te-amo {
+      position: absolute;
+      font-size: 7vw;
+      color: #e91e63;
+      user-select: none;
+      white-space: nowrap;
+      animation: caer 8s linear forwards;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    @keyframes caer {
+      0% {
+        top: -50px;
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        top: 100vh;
+        opacity: 0;
+      }
+    }
+
+    .te-amo:active {
+      transform: scale(1.3);
+    }
+
+    .mensaje-final {
+      background-color: #fff0f5;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .mensaje-final h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3rem;
+      color: #e91e63;
+      margin-bottom: 30px;
+    }
+
+    .mensaje-final p {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      color: #000;
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .mensaje-final img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .parpadeo {
+      font-size: 2rem;
+      color: red;
+      animation: parpadeo 1.2s infinite;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    @keyframes parpadeo {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="counter">❤️ Te amo: <span id="count">0</span></div>
+
+  <script>
+    let count = 0;
+    const counter = document.getElementById('count');
+
+    function crearTeAmo() {
+      const el = document.createElement('div');
+      el.className = 'te-amo';
+      el.textContent = 'Te amo';
+
+      const vw = window.innerWidth;
+      el.style.left = Math.random() * (vw - 100) + 'px';
+
+      el.addEventListener('click', () => {
+        count++;
+        counter.textContent = count;
+        el.remove();
+
+        if (count === 10) {
+          clearInterval(intervalo);
+          mostrarMensajeFinal();
+        }
+      });
+
+      el.addEventListener('animationend', () => {
+        el.remove();
+      });
+
+      document.body.appendChild(el);
+    }
+
+    const intervalo = setInterval(crearTeAmo, 1500);
+
+    function mostrarMensajeFinal() {
+      document.body.innerHTML = '';
+
+      const contenedor = document.createElement('div');
+      contenedor.className = 'mensaje-final';
+
+      const titulo = document.createElement('h1');
+      titulo.textContent = 'Un clic';
+
+      const mensaje = document.createElement('p');
+      mensaje.textContent = `Que rápido pasa el tiempo, aún recuerdo cómo si fuera Sido ayer el día en que nos vimos, como si fuera ayer el día en que me di cuenta de que éramos del mismo estado, como si fuera ayer la primera noche que pasamos juntos, como si fuera ayer la primera vez que me dijiste te amo y yo me sentí tan emocionado. La primera vez que lloramos, la primera vez que pasamos momentos fuertes, la primera vez que nos abrimos y hablamos de nuestro pasado y lo que queremos a futuro, y si a veces hay días no tan buenos, a veces hay días muy buenos, a veces nos sentimos con las ganas de comernos el mundo de una mordida, y otros días queremos estar en silencio y a costarnos a solo pensar, pero en cada día sin importar como sea, el amor que siento por ti jamás te faltará, porque hacen falta años, hacen falta milenios, hacen falta galaxias y estrellas por desaparecer, y volver a renacer, para que un amor así se extinga, porque el amor que siento por ti va más allá que todo eso. Y fue ahí cuando me enamore, te mire con mi alma y pensé: "ahí quiero estar, al lado de esa mujer tan maravillosa". Día a día es una nueva oportunidad para demostrarte lo mucho que te amo, porque el tiempo es relativo, y las horas son fugases, y los días son más cortos, pero eso jamás cambiará lo que sucede entre nosotros, 3 meses y cuando menos lo pensemos serán 6 y después 1 año y cuando abramos los ojos y juntemos nuestros labios, estaremos aun viviendo esa vida juntos que tanto anhelamos. Porque quiero que siempre seas tú, que seas tu hasta que mi conciencia y mi alma de desvanezcan en el tiempo, para volver a renacer y empezar a amarte de nuevo. TE AMO MI AMOR. FELICES 3 MESES JUNTOS.`;
+
+      const imagen = document.createElement('img');
+      imagen.src = 'img.png'; // Reemplaza con tu URL
+
+      const teAmoAnimado = document.createElement('div');
+      teAmoAnimado.className = 'parpadeo';
+      teAmoAnimado.textContent = 'Te amo';
+
+      contenedor.appendChild(titulo);
+      contenedor.appendChild(mensaje);
+      contenedor.appendChild(imagen);
+      contenedor.appendChild(teAmoAnimado);
+      document.body.appendChild(contenedor);
+    }
+  </script>
+
+</body>
+</html>
